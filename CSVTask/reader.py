@@ -1,23 +1,39 @@
+import sys
+
 import csv
 
-with open("in.csv") as f_in, open("out.csv", 'w') as f_out:
-    try:
-    # Write header
-        header = f_in.readline()
-        f_out.write(header)
+from os.path import exists
 
-    except FileNotFoundError:
-        print("Sorry. File not found.")
+print(sys.argv)
 
-    #
-    for line in f_in:
-        f_out.write(line.lower())
+input_path = sys.argv[1]
 
-r = csv.reader(open('out.csv'))
-lines = list(r)
+output_path = sys.argv[2]
 
-lines[3][0] = 'Planescape Torment'
+if len(sys.argv) < 3:
+    print("Not enough parameters")
+    sys.exit
 
-writer = csv.writer(open('out.csv', 'w'))
-writer.writerows(lines)
+if not exists(sys.argv[1]):
+    print("File not found")
+    sys.exit()
+
+if not exists(sys.argv[2]):
+    print("File not found")
+    sys.exit()
+
+with open(input_path, 'r') as file:
+    reader = csv.reader(file)
+    for line in reader:
+        print(line)
+              
+for parameter in sys.argv[3:]:
+    parameter_list = parameter.split(',')
+    new_value = ",".join(parameter_list[2:])
+    print(parameter_list[0], parameter_list[1], new_value)
+
+
+with open(output_path, 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(sys.argv)
 
