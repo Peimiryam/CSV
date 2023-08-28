@@ -34,7 +34,6 @@ for parameter in sys.argv[3:]:
     #for parameter in parameter_list:
     virtual_csv[int(parameter_list[1])][int(parameter_list[0])] = new_value
     print(virtual_csv)
-    break
 
 #with open('out.csv', 'w', newline='') as file:
 with open(output_path, 'w', newline='') as file:
